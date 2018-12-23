@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CBTableViewCell" id="KGk-i7-Jjw" customClass="CBTableViewCell" customModule="CoreDataSearch" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Snn-fn-NfY">
+                        <rect key="frame" x="8" y="8" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="FUW-Hi-F2I"/>
+                            <constraint firstAttribute="width" constant="28" id="GOp-d8-hJb"/>
+                        </constraints>
+                        <connections>
+                            <action selector="cbAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dbe-9D-BjV"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Enabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wk2-qp-EWJ">
+                        <rect key="frame" x="49" y="12" width="131.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="Wk2-qp-EWJ" secondAttribute="bottom" constant="2.5" id="09W-3Q-ZyC"/>
+                    <constraint firstItem="Wk2-qp-EWJ" firstAttribute="leading" secondItem="Snn-fn-NfY" secondAttribute="trailing" constant="13" id="362-hb-FfF"/>
+                    <constraint firstItem="Snn-fn-NfY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="7hT-u7-E83"/>
+                    <constraint firstAttribute="bottom" secondItem="Snn-fn-NfY" secondAttribute="bottom" constant="7.5" id="Y7Q-Z9-Ydf"/>
+                    <constraint firstItem="Snn-fn-NfY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="l73-6F-5RQ"/>
+                    <constraint firstItem="Wk2-qp-EWJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="xti-BX-siM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="cbButton" destination="Snn-fn-NfY" id="XEZ-7S-VLp"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
