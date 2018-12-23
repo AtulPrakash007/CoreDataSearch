@@ -23,6 +23,7 @@
 		047BAF6321CF900500EAE1F7 /* CBTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047BAF6121CF900500EAE1F7 /* CBTableViewCell.xib */; };
 		047BAF6621CF902600EAE1F7 /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BAF6421CF902600EAE1F7 /* ResultTableViewCell.swift */; };
 		047BAF6721CF902600EAE1F7 /* ResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047BAF6521CF902600EAE1F7 /* ResultTableViewCell.xib */; };
+		047BAF6B21CFDE3A00EAE1F7 /* PostDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047BAF6A21CFDE3A00EAE1F7 /* PostDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		047BAF6121CF900500EAE1F7 /* CBTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CBTableViewCell.xib; sourceTree = "<group>"; };
 		047BAF6421CF902600EAE1F7 /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
 		047BAF6521CF902600EAE1F7 /* ResultTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultTableViewCell.xib; sourceTree = "<group>"; };
+		047BAF6A21CFDE3A00EAE1F7 /* PostDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 		047BAF3C21CF8BBE00EAE1F7 /* CoreDataSearch */ = {
 			isa = PBXGroup;
 			children = (
+				047BAF6921CFDE0500EAE1F7 /* Class */,
 				047BAF6821CFAEC600EAE1F7 /* UIKit */,
 				047BAF5321CF8FAD00EAE1F7 /* View */,
 				047BAF3D21CF8BBE00EAE1F7 /* AppDelegate.swift */,
@@ -111,6 +114,14 @@
 			children = (
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		047BAF6921CFDE0500EAE1F7 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				047BAF6A21CFDE3A00EAE1F7 /* PostDataModel.swift */,
+			);
+			path = Class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +208,7 @@
 				047BAF3E21CF8BBE00EAE1F7 /* AppDelegate.swift in Sources */,
 				047BAF4621CF8BBE00EAE1F7 /* CoreDataSearch.xcdatamodeld in Sources */,
 				047BAF6621CF902600EAE1F7 /* ResultTableViewCell.swift in Sources */,
+				047BAF6B21CFDE3A00EAE1F7 /* PostDataModel.swift in Sources */,
 				047BAF6221CF900500EAE1F7 /* CBTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

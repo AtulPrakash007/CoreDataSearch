@@ -22,6 +22,9 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNY-ZN-VBz">
                         <rect key="frame" x="45" y="11" width="230" height="37"/>
                         <color key="backgroundColor" red="0.1317514894" green="0.48532626299999998" blue="0.1233220196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="37" id="5lL-vY-rYm"/>
+                        </constraints>
                         <state key="normal" title="Save">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>

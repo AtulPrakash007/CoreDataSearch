@@ -29,6 +29,9 @@
                             <searchBar contentMode="redraw" placeholder="Search A Project" translatesAutoresizingMaskIntoConstraints="NO" id="k7m-gH-XvP">
                                 <rect key="frame" x="0.0" y="20" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Exy-mw-hWP"/>
+                                </connections>
                             </searchBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post A Project" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dew-nl-TLJ">
                                 <rect key="frame" x="0.0" y="20" width="375" height="56"/>
