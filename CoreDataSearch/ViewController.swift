@@ -31,7 +31,7 @@ class ViewController: UIViewController {
             return _fetchedResultsController!
         }
         
-        let fetchRequest: NSFetchRequest<Projects> = Users.fetchRequest()
+        let fetchRequest: NSFetchRequest<Projects> = Projects.fetchRequest()
         
         let sortDescriptor = NSSortDescriptor(key: "id", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
@@ -341,5 +341,15 @@ extension ViewController: BtnDelegate {
     func saveBtnDelegate() {
         print("Save Action")
         dataPrint()
+    }
+}
+
+//MARK:- NSFetchedResultsControllerDelegate
+
+extension ViewController : NSFetchedResultsControllerDelegate
+{
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        // Whenever a change occours on our data, we refresh the table view.
+        self.tableView.reloadData()
     }
 }
