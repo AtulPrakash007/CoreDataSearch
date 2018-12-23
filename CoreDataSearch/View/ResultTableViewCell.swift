@@ -10,6 +10,11 @@ import UIKit
 
 class ResultTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var pNameLabel: UILabel!
+    @IBOutlet weak var cNameLabel: UILabel!
+    @IBOutlet weak var pDescLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

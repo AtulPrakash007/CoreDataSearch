@@ -21,6 +21,10 @@ class ViewController: UIViewController {
     
     var isSearchProject: Bool = true
     var searchActive: Bool = false
+    var searchString: String = ""
+    var projects = [Projects]()
+    
+    //MARK: - Core Data Variable
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var _fetchedResultsController: NSFetchedResultsController<Projects>? = nil
@@ -32,11 +36,11 @@ class ViewController: UIViewController {
         }
         
         let fetchRequest: NSFetchRequest<Projects> = Projects.fetchRequest()
-        
-        let sortDescriptor = NSSortDescriptor(key: "id", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        fetchRequest.fetchLimit = 1 //fetch last object
-        //        fetchRequest.fetchBatchSize = 60
+        fetchRequest.predicate = NSPredicate(format: "name = %@", searchString)
+//        let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
+//        fetchRequest.sortDescriptors = [sortDescriptor]
+//        fetchRequest.fetchLimit = 1 //fetch last object
+        fetchRequest.fetchBatchSize = 60
         
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
         aFetchedResultsController.delegate = self
@@ -88,14 +92,16 @@ class ViewController: UIViewController {
             postLabel.isHidden = true
             searchBar.isHidden = false
             topLabel.isHidden = true
+            PostDataModel.shared.resetAll()
         } else {
             submitLabel.isHidden = true
             postLabel.isHidden = false
             searchBar.isHidden = true
             topLabel.isHidden = false
+            searchBar.text = nil
+            searchActive = false
         }
         tableView.reloadData()
-        PostDataModel.shared.resetAll()
     }
     
     func dataPrint() {
@@ -106,10 +112,35 @@ class ViewController: UIViewController {
     }
     
     func validateData() -> Bool {
-        guard PostDataModel.shared.pName! == "", PostDataModel.shared.cName! == "",  PostDataModel.shared.pDescription! == "" else {
+        guard PostDataModel.shared.pName! != "", PostDataModel.shared.cName! != "",  PostDataModel.shared.pDescription! != "" else {
             return false
         }
         return true
+    }
+    
+    func saveData() {
+        let project = Projects(context: context)
+        project.name = PostDataModel.shared.pName!
+        project.company = PostDataModel.shared.cName!
+        project.discription = PostDataModel.shared.pDescription!
+        project.isLocation = PostDataModel.shared.isLocation!
+        
+        do {
+            try context.save()
+            PostDataModel.shared.resetAll()
+            tableView.reloadData()
+        } catch {
+            print("Failed saving")
+        }
+    }
+    
+    func fetchData() {
+        do {
+            projects = try context.fetch(Projects.fetchRequest())
+        } catch {
+            print("Fetching Failed")
+        }
+        print(projects.count)
     }
     
     //MARK: - Button Action
@@ -119,6 +150,7 @@ class ViewController: UIViewController {
             isSearchProject = true
             viewSetup()
         }
+//        fetchData()
     }
     
     @IBAction func postAction(_ sender: UIButton) {
@@ -155,42 +187,47 @@ extension ViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        searchBar.resignFirstResponder()
         if (searchBar.text?.isEmpty)! {
             searchBar.enablesReturnKeyAutomatically = true
         }else {
-            searchBar.resignFirstResponder()
+            
             //Search text from core data
             //refresh table view
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if videoTitleSearch {
-//            filteredTitle = titleArray.filter({ (text) -> Bool in
-//                let tmp: NSString = text.title as NSString
-//                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-//                return range.location != NSNotFound
-//            })
-//        }else{
-//            filteredUser = profileArray.filter({ (text) -> Bool in
-//                let tmp: NSString = text.username as NSString
-//                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-//                return range.location != NSNotFound
-//            })
-//        }
-//
-//        if(filteredTitle.count == 0) || (filteredUser.count == 0){
-//            if searchText == "" {
-//                searchActive = false;
-//            }else{
-//                searchActive = true
-//            }
-//        } else {
-//            searchActive = true;
-//        }
+        searchString = searchText
+        
+        do {
+            let fetchRequest : NSFetchRequest<Projects> = Projects.fetchRequest()
+            fetchRequest.predicate = NSPredicate(format: "name contains[cd] %@", searchText)
+            projects = try context.fetch(fetchRequest)
+        }
+        catch {
+            print ("fetch task failed", error)
+        }
+        
+        if(projects.count == 0){
+            if searchText == "" {
+                searchActive = false;
+            }else{
+                searchActive = true
+            }
+        } else {
+            searchActive = true;
+        }
         
         self.tableView.reloadData()
+        
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Projects")
+//        fetchRequest.predicate = NSPredicate(format: "name contains[cd] %@", searchText)
+//        projects = try! context.fetch(fetchRequest) as! [Projects]
+//        print(projects.count)
+//        for project in projects {
+//            print(project.name ?? "Nothing")
+//        }
     }
 }
 
@@ -205,7 +242,11 @@ extension ViewController: UITableViewDelegate {
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearchProject {
-            return 0
+            if searchActive {
+                return projects.count
+            }else {
+                return 0
+            }
         }else {
             return 5
         }
@@ -219,6 +260,17 @@ extension ViewController: UITableViewDataSource {
             tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
             
             let resultCell = tableView.dequeueReusableCell(withIdentifier: String(describing: ResultTableViewCell.self), for: indexPath) as! ResultTableViewCell
+            
+            let project = projects[indexPath.row]
+            
+            resultCell.pNameLabel.text = project.name
+            resultCell.cNameLabel.text = project.company
+            resultCell.pDescLabel.text = project.discription
+            if project.isLocation {
+                resultCell.locationLabel.text = "Show location on Map"
+            }else {
+                resultCell.locationLabel.text = "No location found"
+            }
             
             cell = resultCell
         }else {
@@ -341,6 +393,9 @@ extension ViewController: BtnDelegate {
     func saveBtnDelegate() {
         print("Save Action")
         dataPrint()
+        if validateData() {
+            saveData()
+        }
     }
 }
 
