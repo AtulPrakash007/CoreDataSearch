@@ -27,35 +27,6 @@ class ViewController: UIViewController {
     //MARK: - Core Data Variable
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var _fetchedResultsController: NSFetchedResultsController<Projects>? = nil
-
-    var fetchedResultsController: NSFetchedResultsController<Projects>
-    {
-        if _fetchedResultsController != nil {
-            return _fetchedResultsController!
-        }
-        
-        let fetchRequest: NSFetchRequest<Projects> = Projects.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "name = %@", searchString)
-//        let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
-//        fetchRequest.sortDescriptors = [sortDescriptor]
-//        fetchRequest.fetchLimit = 1 //fetch last object
-        fetchRequest.fetchBatchSize = 60
-        
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.context, sectionNameKeyPath: nil, cacheName: nil)
-        aFetchedResultsController.delegate = self
-        
-        _fetchedResultsController = aFetchedResultsController
-        
-        do {
-            try _fetchedResultsController!.performFetch()
-        } catch {
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
-        
-        return _fetchedResultsController!
-    }
     
     //MARK: - View Life
     
@@ -396,15 +367,5 @@ extension ViewController: BtnDelegate {
         if validateData() {
             saveData()
         }
-    }
-}
-
-//MARK:- NSFetchedResultsControllerDelegate
-
-extension ViewController : NSFetchedResultsControllerDelegate
-{
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        // Whenever a change occours on our data, we refresh the table view.
-        self.tableView.reloadData()
     }
 }
